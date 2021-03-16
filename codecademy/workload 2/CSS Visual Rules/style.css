@@ -9,7 +9,9 @@ body {
     padding: 0;
   }
   
-  h1 {font-family: Georgia;
+  
+  h1 { text-align: center;
+    font-family: Georgia;
     color: #FFF;
     font-size: 2em;
     padding-top: 100px;
@@ -26,6 +28,9 @@ body {
     text-align: left;
     width: 70%;
   }
+  
+  
+  
   
   p {font-family: Helvetica;
     font-size: 18px;
