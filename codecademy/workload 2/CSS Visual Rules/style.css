@@ -27,7 +27,7 @@ body {
     width: 70%;
   }
   
-  p {
+  p {font-family: Helvetica;
     color: AliceBlue;
     line-height: 1.3em;
     text-align: left;
