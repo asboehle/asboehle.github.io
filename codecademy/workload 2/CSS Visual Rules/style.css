@@ -9,14 +9,14 @@ body {
     padding: 0;
   }
   
-  h1 {
+  h1 {font-family: Georgia;
     color: #FFF;
     font-size: 2em;
     padding-top: 100px;
     width: 100%;
   }
   
-  h2 {
+  h2 {font-family: Georgia;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     color: rgba(255, 255, 255, 0.5);
     font-weight: 100;
