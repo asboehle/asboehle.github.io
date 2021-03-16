@@ -29,6 +29,7 @@ body {
   
   p {font-family: Helvetica;
     font-size: 18px;
+    font-weight: bold;
     color: AliceBlue;
     line-height: 1.3em;
     text-align: left;
