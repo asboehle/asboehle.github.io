@@ -3,3 +3,14 @@ body {
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
 }
+header {
+    text-align: center;
+}
+
+header p {
+    text-align: right;
+    font-weight: bold;
+    font-size: 0.8em;
+    padding-right: 1em;
+    margin-top: -2em;
+}
