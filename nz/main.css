@@ -51,8 +51,8 @@ main figure {
 }
 
 main figure img {
-    /* border: 1px solid black;*/
-    border-style: solid;
+    border: 1px solid black;
+    /*border-style: solid;
     border-color: black;
-    border-width: 5px;
+    border-width: 5px;*/
 }
