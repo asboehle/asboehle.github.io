@@ -56,3 +56,9 @@ main figure img {
     border-color: black;
     border-width: 5px;*/
 }
+
+#map {
+    height: 360px;
+    width: 100%;
+    border: 1px solid grey;
+}
