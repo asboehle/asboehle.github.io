@@ -44,3 +44,15 @@ main p {
     text-align: justify;
     font-weight: bold;
 }
+
+main figure {
+    margin-left: 0%;
+    width: 100%;
+}
+
+main figure img {
+    /* border: 1px solid black;*/
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+}
