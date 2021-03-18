@@ -57,6 +57,10 @@ main figure img {
     border-width: 5px;*/
 }
 
+main figcaption {
+    padding-right: 0.3em;
+}
+
 #map {
     height: 360px;
     width: 100%;
