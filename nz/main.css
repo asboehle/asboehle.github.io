@@ -34,3 +34,13 @@ header address {
     font-size: 0.9em;
     font-style: italic;
 }
+
+main {
+    max-width: 70%;
+    margin: auto;
+}
+
+main p {
+    text-align: justify;
+    font-weight: bold;
+}
