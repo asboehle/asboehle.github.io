@@ -3,21 +3,22 @@ body {
     margin: auto;
     font-family: 'Open Sans', sans-serif;
 }
+
 header {
     text-align: center;
 }
 
-header p {
+header p {
     text-align: right;
     font-weight: bold;
     font-size: 0.8em;
     padding-right: 1em;
-    margin-top: -2em;   
+    margin-top: -2em;
 }
+
 .white,
-.white a:link, 
-.white a:visited
-{
+.white a:link,
+.white a:visited {
     color: white;
 }
 
@@ -27,7 +28,7 @@ header nav img {
 
 a:link,
 a:visited {
-    color:black
+    color: black
 }
 
 header address {
@@ -43,7 +44,7 @@ main {
 main p {
     text-align: justify;
     font-family: 'Roboto', sans-serif;
- 
+
 }
 
 main figure {
@@ -72,7 +73,7 @@ main ul {
     list-style-type: circle;
 }
 
-footer .next{
+footer .next {
     float: right;
 }
 
@@ -96,10 +97,12 @@ footer {
     main {
         max-width: 90%;
     }
+
     figure img {
         width: 100%;
     }
 }
+
 @media screen and (max-width: 1280px) {
     header img.banner {
         width: 100vw;
