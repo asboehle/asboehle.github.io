@@ -1,4 +1,4 @@
-
+//Opening line
 console.log('It was love at first sight.');
 
 console.log('The first time Yossarian saw the chaplain he fell madly in love with him.');
