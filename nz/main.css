@@ -48,7 +48,7 @@ main p {
 }
 
 main figure {
-    margin-left: 0%;
+    margin-left: 0;
     width: 100%;
 }
 
@@ -93,7 +93,7 @@ footer {
     margin-left: 0.3em;
 }
 
-@media screen and (max-width:900px) {
+@media screen and (max-width: 900px) {
     main {
         max-width: 90%;
     }
