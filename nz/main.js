@@ -42,8 +42,12 @@ mrk.bindPopup(`
 }
 
 nav.onchange =(evt) => {
-    console.log(evt.target);
-}
+    let selected = evt.target.selectedIndex;
+    let options = evtl.target.options;
+    let username =  options[selected].value;
+    let link = `https://${username}.github.io/nz/index.html`
+    console.log(username, link);
+};
 
 //beschriftet marke, Popup feature geht immer nur auf einem Marker
 
