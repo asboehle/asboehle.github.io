@@ -17,17 +17,19 @@ const map = L.map("map", {
  //console.log(nav)
 
  //console.log(ROUTE)
- ROUTE.sort ((stop1, stop2) => {
-    return strop1.nr > stop2.nr
- }); //nach nummer sortieren aaufsteigend
+ ROUTE.sort((stop1, stop2) => {
+    return stop1.nr > stop2.nr
+});
+ //nach nummer sortieren aaufsteigend
 
  for (let entry of ROUTE) {
      //console.log(entry);
  
      nav.innerHTML += `
-     <option value="${entry.user}"> Stop ${entry.nr}: ${entry.name}</option>`;
+     <option value="${entry.user}">Stop ${entry.nr}: ${entry.name}</option>
+     `;
 
-     let mrk = L.marker([ entry.lat, entry.lng ]).addTo(map); //marker definieren und karte hinzufügen
+let mrk = L.marker([ entry.lat, entry.lng ]).addTo(map); //marker definieren und karte hinzufügen
 mrk.bindPopup(`
     <h4>entry ${entry.nr}: ${entry.name}</h4>
     <p><i class="fas fa-external-link-alt mr-3"></i><a href="${entry.wikipedia}"> Read about stop in wikpipedia</a></p>
