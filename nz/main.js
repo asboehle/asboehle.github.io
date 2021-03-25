@@ -16,7 +16,7 @@ const map = L.map("map", {
  for (let entry of ROUTE) {
      console.log(entry);
  
-let mrk =  L.marker ([entry.lat, entry.lng]).addTo(map); //marker definieren und karte hinzufügen
+mrk = L.marker([ entry.lat, entry.lng ]).addTo(map); //marker definieren und karte hinzufügen
 mrk.bindPopup(`
     <h4>entry ${entry.nr}: ${entry.name}</h4>
     <p><i class="fas fa-external-link-alt mr-3"></i><a href="${entry.wikipedia}"> Read about stop in wikpipedia</a></p>
