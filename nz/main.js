@@ -8,15 +8,15 @@ let entry = {
 };
 
 const map = L.map("map", {
- center: [ -44.616667, 167.866667 ],
- zoom: 13,
+ //center: [ -44.616667, 167.866667 ],
+ //zoom: 13,
  layers: [ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") ]}); 
 
  //console.log(ROUTE)
  for (let entry of ROUTE) {
-     console.log(entry);
+     //console.log(entry);
  
-mrk = L.marker([ entry.lat, entry.lng ]).addTo(map); //marker definieren und karte hinzufügen
+let mrk = L.marker([ entry.lat, entry.lng ]).addTo(map); //marker definieren und karte hinzufügen
 mrk.bindPopup(`
     <h4>entry ${entry.nr}: ${entry.name}</h4>
     <p><i class="fas fa-external-link-alt mr-3"></i><a href="${entry.wikipedia}"> Read about stop in wikpipedia</a></p>
