@@ -1,7 +1,7 @@
 let stop = {
     nr: 11,
     name: "Milford Sound",
-    lat: -44.616667
+    lat: -44.616667,
     lng: 167.866667,
     user: "asboehle",
     wikipedia: "https://de.wikipedia.org/wiki/Milford_Sound"
