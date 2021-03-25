@@ -1,4 +1,4 @@
-let stop = {
+let entry = {
     nr: 11,
     name: "Milford Sound",
     lat: -44.616667,
@@ -10,7 +10,7 @@ let stop = {
 const map = L.map("map", {
  center: [ -44.616667, 167.866667 ],
  zoom: 13,
- layers: [ L.tileLayers("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") ]}); 
+ layers: [ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") ]}); 
 
  //console.log(ROUTE)
  for (let entry of ROUTE) {
