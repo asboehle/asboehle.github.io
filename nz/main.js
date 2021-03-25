@@ -12,9 +12,9 @@ const map = L.map("map", {
  zoom: 13,
  layers: [ L.tileLayers("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") ]}); 
 
- console.log(ROUTE)
+ //console.log(ROUTE)
  for (let entry of ROUTE) {
-     console.log(entry)
+     console.log(entry);
  
 let mrk =  L.marker ([entry.lat, entry.lng]).addTo(map); //marker definieren und karte hinzufügen
 mrk.bindPopup(`
