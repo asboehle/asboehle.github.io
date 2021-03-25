@@ -41,6 +41,7 @@ mrk.bindPopup(`
     }
 }
 
+nav.options.selectedIndex = 11 -1;
 nav.onchange = (evt) => {
     let selected = evt.target.selectedIndex;
     let options = evt.target.options;
