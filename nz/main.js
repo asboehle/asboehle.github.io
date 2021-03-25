@@ -41,9 +41,9 @@ mrk.bindPopup(`
     }
 }
 
-nav.onchange =(evt) => {
+nav.onchange = (evt) => {
     let selected = evt.target.selectedIndex;
-    let options = evtl.target.options;
+    let options = evt.target.options;
     let username =  options[selected].value;
     let link = `https://${username}.github.io/nz/index.html`
     console.log(username, link);
