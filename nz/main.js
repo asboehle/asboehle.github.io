@@ -5,7 +5,7 @@ let stop = {
     lng: 167.866667,
     user: "asboehle",
     wikipedia: "https://de.wikipedia.org/wiki/Milford_Sound"
-};
+}
 
 
 const map = L.map("map", {
@@ -16,7 +16,7 @@ const map = L.map("map", {
 
 let nav = document.querySelector('#navigation');
 console.log('Naivation HTML Element: ', nav);
-//console.log(ROUTE)
+//console.log(ROUTE);
 
 ROUTE.sort((stop1, stop2) => {
     return stop1.nr > stop2.nr; {
@@ -27,7 +27,7 @@ ROUTE.sort((stop1, stop2) => {
 });
 
 
-//nach nummer sortieren aaufsteigend
+//nach nummer sortieren aaufsteigend;
 
 for (let entry of ROUTE) {
     //console.log(entry);
@@ -48,7 +48,6 @@ nav.onchange = (evt) => {
     console.log(evt.target.selectedIndex);
     let selected = evt.target.selectedIndex;
     let options = evt.target.options;
-
     let username = options[selected].value;
     let link = `https://${username}.github.io/nz/index.html`;
     window.location.href = link;
