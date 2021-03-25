@@ -1,17 +1,17 @@
 let stop = {
     nr: 11,
-    name: "milford Sound",
+    name: "Milford Sound",
     lat: -44.616667
     lng: 167.866667,
-    user: "webmapping",
-    wikidpedia: "https://de.wikipedia.org/wiki/Milford_Sound"
+    user: "asboehle",
+    wikipedia: "https://de.wikipedia.org/wiki/Milford_Sound"
 };
 
 console.log(stop);
 console.log(stop.name);
 console.log(stop.lat);
 console.log(stop.lng);
-console.log(stop.wikidpedia);
+console.log(stop.wikipedia);
 
 const map = L.map("map", {
  center: [ -44.616667, 167.866667 ],
