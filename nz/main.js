@@ -36,9 +36,13 @@ mrk.bindPopup(`
     `);
 
     if (entry.nr == 11) {
-        map.setView ([entry.lat, entry.lng], 13)
+        map.setView ([entry.lat, entry.lng], 13),
         mrk.openPopup ();
     }
+}
+
+nav.onchange =(evt) => {
+    console.log(evt.target);
 }
 
 //beschriftet marke, Popup feature geht immer nur auf einem Marker
