@@ -12,11 +12,15 @@ const map = L.map("map", {
  zoom: 13,
  layers: [ L.tileLayers("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") ]}); 
 
-let mrk =  L.marker ([-44.616667, 167.866667]).addTo(map); //marker definieren und karte hinzufügen
+ console.log(ROUTE)
+ for (let entry of ROUTE) {
+     console.log(entry)
+ }
+let mrk =  L.marker ([entry.lat, entry.lng]).addTo(map); //marker definieren und karte hinzufügen
 mrk.bindPopup(`
-    <h4>Stop ${stop.nr}: ${stop.name}</h4>
-    <p><i class="fas fa-external-link-alt mr-3"></i><a>href="${stop.wikipedia}" Read about stop in wikpipedia</a></p>`
-    ).openPopup
+    <h4>entry ${entry.nr}: ${entry.name}</h4>
+    <p><i class="fas fa-external-link-alt mr-3"></i><a href="${entry.wikipedia}"> Read about stop in wikpipedia</a></p>
+    `).openPopup();
 
 //beschriftet marke, Popup feature geht immer nur auf einem Marker
 
