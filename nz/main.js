@@ -20,7 +20,12 @@ let mrk =  L.marker ([entry.lat, entry.lng]).addTo(map); //marker definieren und
 mrk.bindPopup(`
     <h4>entry ${entry.nr}: ${entry.name}</h4>
     <p><i class="fas fa-external-link-alt mr-3"></i><a href="${entry.wikipedia}"> Read about stop in wikpipedia</a></p>
-    `).openPopup();
+    `);
+
+    if (entry.nr == 11) {
+        map.setView ([entry.lat, entry.lng], 13)
+        mrk.openPopup ();
+    }
 }
 
 //beschriftet marke, Popup feature geht immer nur auf einem Marker
