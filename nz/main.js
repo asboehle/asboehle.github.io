@@ -19,7 +19,7 @@ console.log('Naivation HTML Element: ', nav);
 //console.log(ROUTE);
 
 ROUTE.sort((stop1, stop2) => {
-    return stop1.nr > stop2.nr; {
+    if (stop1.nr > stop2.nr) {
         return 1;
     } else {
         return -1;
@@ -44,6 +44,7 @@ for (let entry of ROUTE) {
     }
 }
 
+nav.selectedIndex = 13-1;
 nav.onchange = (evt) => {
     console.log(evt.target.selectedIndex);
     let selected = evt.target.selectedIndex;
