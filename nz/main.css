@@ -43,7 +43,7 @@ main {
 
 main p {
     text-align: justify;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 
 }
 
@@ -59,9 +59,9 @@ main figure img {
     border-width: 5px;*/
 }
 
-main figcaption {
+/*main figcaption {
     padding-right: 0.3em;
-}
+}*/
 
 #map {
     height: 360px;
