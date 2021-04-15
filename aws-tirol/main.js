@@ -19,6 +19,8 @@ let layerControl = L.control.layers({
 }).addTo(map);
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
+
+let awsLayer = L.featureGroup();
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 awsLayer.addTo(map);
 
@@ -30,9 +32,17 @@ fetch(awsUrl)
         //console.log('Satation: ', station);
         let marker = L.marker(
             [station.geometry.coordinates[1],
-            station.geometry.coordinates[0]]
+            station.geometry.coordinates[0]] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
         );
-        marker.bindPopup(`<h3>${station.properties.name}</h3>`);
+        marker.bindPopup(`<h3>${station.properties.name}</h3>;
+        <ul>
+            <li>Datum: ${station.properties.date}
+            <li>Temperature: ${station.properties.LT} C</li>
+        </ul>
+        `);
         marker.addTo(awsLayer);
     }
+
+    //set map view to all stations
+    map.fitBounds(awsLayer.getBounds());
 });
