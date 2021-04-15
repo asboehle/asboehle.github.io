@@ -65,7 +65,7 @@ fetch(awsUrl)
             if (station.properties.HS > 200) {
                 highlightClass = 'snow-200';
             }
-            
+
             let snowIcon = L.divIcon({
                 html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
             })
@@ -77,6 +77,8 @@ fetch(awsUrl)
             snowMarker.addTo(snowLayer);
         }
     
+
+    // Task: Windgeschiwndikeit mit Marker einfügen
     }
     //set map view to all stations
     map.fitBounds(awsLayer.getBounds());
