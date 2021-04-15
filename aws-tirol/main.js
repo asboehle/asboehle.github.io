@@ -25,8 +25,8 @@ layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 awsLayer.addTo(map);
 
 let snowLayer = L.featureGroup();
-layerControl.addOverlay(snowLayer, "Schneehöhe")
-//snowLayer überprüfen 
+layerControl.addOverlay(snowLayer, "Schneehöhen");
+snowLayer.addTo(map);
 
 fetch(awsUrl)
     .then(response => response.json())
@@ -56,15 +56,27 @@ fetch(awsUrl)
     
         marker.addTo(awsLayer);
         if (station.properties.HS) {
-            let snowIcon = L.divIcon ({html: `<div> class="snow-label"</div>`//Prüfen
-        })
-            let snowMarker = L.marker ([
-                station.geometry.coordinates[1],
-                sation.geometry.coordinates[0]
+            let highlightClass = '';
+
+            if (station.properties.HS > 100) {
+                highlightClass = 'snow-100';
+            }
+
+            if (station.properties.HS > 200) {
+                highlightClass = 'snow-200';
+            }
             
-            ]);
+            let snowIcon = L.divIcon({
+                html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
+            })
+            let snowMarker = L.marker([
+                station.geometry.coordinates[1],
+                station.geometry.coordinates[0]
+            ], 
+            {icon: snowIcon });
             snowMarker.addTo(snowLayer);
         }
+    
     }
     //set map view to all stations
     map.fitBounds(awsLayer.getBounds());
