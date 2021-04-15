@@ -24,14 +24,18 @@ let awsLayer = L.featureGroup();
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 awsLayer.addTo(map);
 
+let snowLayer = L.featureGroup();
+layerControl.addOverlay(snowLayer, "Schneehöhe")
+//snowLayer überprüfen 
+
 fetch(awsUrl)
     .then(response => response.json())
     .then(json => {
         console.log('Daten Konvertiert: ', json);
         for (station of json.features) {
         //console.log('Satation: ', station);
-        let marker = L.marker(
-            [station.geometry.coordinates[1],
+        let marker = L.marker([
+            station.geometry.coordinates[1],
             station.geometry.coordinates[0]] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
         );
         let formattedDate = new Date(station.properties.date);
@@ -39,12 +43,29 @@ fetch(awsUrl)
         <h3>${station.properties.name}</h3>
         <ul>
           <li>Datum: ${formattedDate.toLocaleString("de")}</li>
-          <li>Temperatur: ${station.properties.LT} C</li>
-        </ul>
-        `);
-        marker.addTo(awsLayer);
-    }
+          <li>Stationshöhe: ${sation.geometry.coordinates[2]} m</li>;<li>Temperatur: ${station.properties.LT} C</li>
+          <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
+          <li>Luftfeuchte: ${station.properties.RH} </li>
+          <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>;
+          <li>Windgeschwindrichtung: ${station.properties.WR || '?'}</li>
 
+        </ul>
+        <a target = "_blak" href ="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
+        `);
+
+    
+        marker.addTo(awsLayer);
+        if (station.properties.HS) {
+            let snowIcon = L.divIcon ({html: `<div> class="snow-label"</div>`//Prüfen
+        })
+            let snowMarker = L.marker ([
+                station.geometry.coordinates[1],
+                sation.geometry.coordinates[0]
+            
+            ]);
+            snowMarker.addTo(snowLayer);
+        }
+    }
     //set map view to all stations
     map.fitBounds(awsLayer.getBounds());
 });
