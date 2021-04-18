@@ -12,7 +12,8 @@ h2 {
 .snow-label, wind-label {
     font-size: 1.25em;
     font-weight: bold;
-    display: 0.3em;
+    display: inline;
+    padding: 0.3em;
     border: 1px solid grey;
     background-color: silver;
     text-shadow: 
