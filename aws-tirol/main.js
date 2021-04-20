@@ -22,15 +22,19 @@ let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
 
 let awsLayer = L.featureGroup();
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
-awsLayer.addTo(map);
+//awsLayer.addTo(map);
 
 let snowLayer = L.featureGroup();
 layerControl.addOverlay(snowLayer, "Schneehöhen (cm)");
-snowLayer.addTo(map);
+//snowLayer.addTo(map);
 
 let windLayer = L.featureGroup();
 layerControl.addOverlay(windLayer, "Windgeschwindigkeit (km/h)");
-windLayer.addTo(map);
+//windLayer.addTo(map);
+
+let temperatureLayer = L.featureGroup ();
+layerControl.addOverlay(temperatureLayer, "Temperatur (°C)");
+//temperatureLayer.addTo(map);
 
 fetch(awsUrl)
     .then(response => response.json())
@@ -38,6 +42,8 @@ fetch(awsUrl)
         console.log('Daten Konvertiert: ', json);
         for (station of json.features) {
         //console.log('Satation: ', station);
+
+        //https://leafletjs.com/reference-1.7.1.html#layer 
         let marker = L.marker([
             station.geometry.coordinates[1],
             station.geometry.coordinates[0]] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
@@ -98,9 +104,31 @@ fetch(awsUrl)
                 });
                 windMarker.addTo(windLayer);
             }
+            if (station.properties.LT) {
+                let temperatureHighlightClass = '';
+                if (station.properties.LT >= 0) {
+                    temperatureHighlightClass = 'positive-temp';
+                }
+                if (station.properties.LT < 0) {
+                    temperatureHighlightClass = 'negative-temp';
+                }
+                let temperatureIcon = L.divIcon({
+                    html: `<div class="temperature-label ${temperatureHighlightClass}">${station.properties.LT}</div>`,
+                });
+                let temperatureMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: temperatureIcon
+                });
+                temperatureMarker.addTo(tempLayer);
+            }
         }
 
     // Task: Windgeschiwndikeit mit Marker einfügen
     //set map view to all stations
     map.fitBounds(awsLayer.getBounds());
 });
+
+// Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
+// Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
