@@ -32,7 +32,7 @@ let windLayer = L.featureGroup();
 layerControl.addOverlay(windLayer, "Windgeschwindigkeit (km/h)");
 //windLayer.addTo(map);
 
-let temperatureLayer = L.featureGroup ();
+let temperatureLayer = L.featureGroup();
 layerControl.addOverlay(temperatureLayer, "Temperatur (°C)");
 //temperatureLayer.addTo(map);
 
@@ -41,15 +41,16 @@ fetch(awsUrl)
     .then(json => {
         console.log('Daten Konvertiert: ', json);
         for (station of json.features) {
-        //console.log('Satation: ', station);
+            //console.log('Satation: ', station);
 
-        //https://leafletjs.com/reference-1.7.1.html#layer 
-        let marker = L.marker([
-            station.geometry.coordinates[1],
-            station.geometry.coordinates[0]] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
-        );
-        let formattedDate = new Date(station.properties.date);
-        marker.bindPopup(`
+            //https://leafletjs.com/reference-1.7.1.html#layer 
+            let marker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
+            );
+            let formattedDate = new Date(station.properties.date);
+            marker.bindPopup(`
         <h3>${station.properties.name}</h3>
         <ul>
           <li>Datum: ${formattedDate.toLocaleString("de")}</li>
@@ -64,8 +65,8 @@ fetch(awsUrl)
         <a target = "_blak" href ="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
         `);
 
-    
-        marker.addTo(awsLayer);
+
+            marker.addTo(awsLayer);
             if (station.properties.HS) {
                 let highlightClass = '';
                 if (station.properties.HS > 100) {
@@ -125,10 +126,10 @@ fetch(awsUrl)
             }
         }
 
-    // Task: Windgeschiwndikeit mit Marker einfügen
-    //set map view to all stations
-    map.fitBounds(awsLayer.getBounds());
-});
+        // Task: Windgeschiwndikeit mit Marker einfügen
+        //set map view to all stations
+        map.fitBounds(awsLayer.getBounds());
+    });
 
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
