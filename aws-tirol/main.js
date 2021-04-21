@@ -112,7 +112,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
             }
             if (station.properties.LT) {
                 let temperatureHighlightClass = '';
-                if (station.properties.LT >= 0) {
+                if (station.properties.LT > 0) {
                     temperatureHighlightClass = 'positive-temp';
                 }
                 if (station.properties.LT < 0) {
@@ -129,9 +129,25 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 });
                 temperatureMarker.addTo(temperatureLayer);
             }
+            else if (station.properties.LT == 0) {
+                let temperatureHighlightClass = "temp-0";
+                let temperatureIcon = L.divIcon({
+                    html:`<div class="temperature-label ${temperatureHighlightClass}">${station.properties.LT}</div>`
+                });
+                
+                let temperatureMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: temperatureIcon
+                });
+                
+
+
+            }
         }
 
-        // Task: Windgeschiwndikeit mit Marker einfügen
+
         //set map view to all stations
         map.fitBounds(awsLayer.getBounds());
     });
