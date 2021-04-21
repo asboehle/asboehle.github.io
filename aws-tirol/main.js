@@ -20,9 +20,9 @@ let layerControl = L.control.layers({
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
 
-let awsLayer = L.featureGroup();
+let awsLayer = L.featureGroup(); //für 
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
-//awsLayer.addTo(map);
+//awsLayer.addTo(map); nicht automatisch hinzugefügt
 
 let snowLayer = L.featureGroup();
 layerControl.addOverlay(snowLayer, "Schneehöhen (cm)");
@@ -36,7 +36,7 @@ let temperatureLayer = L.featureGroup();
 layerControl.addOverlay(temperatureLayer, "Temperatur (°C)");
 //temperatureLayer.addTo(map);
 
-fetch(awsUrl)
+fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
     .then(response => response.json())
     .then(json => {
         console.log('Daten Konvertiert: ', json);
@@ -122,7 +122,7 @@ fetch(awsUrl)
                 ], {
                     icon: temperatureIcon
                 });
-                temperatureMarker.addTo(tempLayer);
+                temperatureMarker.addTo(temperatureLayer);
             }
         }
 
