@@ -41,7 +41,7 @@ fetch(awsUrl)
     .then(json => {
         console.log('Daten Konvertiert: ', json);
         for (station of json.features) {
-            //console.log('Satation: ', station);
+            //console.log('Station: ', station);
 
             //https://leafletjs.com/reference-1.7.1.html#layer 
             let marker = L.marker([
@@ -54,7 +54,7 @@ fetch(awsUrl)
         <h3>${station.properties.name}</h3>
         <ul>
           <li>Datum: ${formattedDate.toLocaleString("de")}</li>
-          <li>Stationshöhe: ${sation.geometry.coordinates[2]} m</li>;
+          <li>Stationshöhe: ${station.geometry.coordinates[2]} m</li>;
           <li>Temperatur: ${station.properties.LT} °C</li>
           <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
           <li>Luftfeuchte: ${station.properties.RH} </li>
