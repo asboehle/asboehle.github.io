@@ -1,22 +1,22 @@
 const COLORS = {
     windspeed: [{
-        min: -20,
-        max: -10,
+        min: 0,
+        max: 5,
         col: "#ffff64"
     }, {
-        min: -10,
-        max: 0,
-        col: "#c8ff64"
-    }, {
-        min: 0,
+        min: 5,
         max: 10,
-        col: "#96ff96"
+        col: "#c8ff64"
     }, {
         min: 10,
         max: 20,
-        col: "#32c8ff"
+        col: "#96ff96"
     }, {
         min: 20,
+        max: 40,
+        col: "#32c8ff"
+    }, {
+        min: 40,
         max: 60,
         col: "#6496ff"
     }, {
@@ -31,8 +31,8 @@ const COLORS = {
 
 
     temperature: [{
-        min: -25,
-        max: -999,
+        min: -99,
+        max: -25,
         col: "#9f80ff"
     }, {
         min: -25,
@@ -119,7 +119,7 @@ const COLORS = {
         col: "#784bff"
     }, {
         min: 400,
-        max: 999,
+        max: 9999,
         col: "#cd0feb"
     }]
 };
