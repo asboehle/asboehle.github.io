@@ -37,7 +37,15 @@ let layerControl = L.control.layers({
 },{
     collapsed:false
 }).addTo(map);
+
 overlays.temperature.addTo(map);
+
+//Maßstab einbauen
+
+L.control.scale({
+    imperial: false
+}).addTo(map);
+
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
 
