@@ -12,7 +12,7 @@ let map = L.map("map", {
 
 let overlays = {
     stations: L.featureGroup(),
-    temperature: L.featureGroup (),
+    temperature: L.featureGroup(),
     snowehight: L.featureGroup(),
     windspeed: L.featureGroup(),
     winddirection: L.featureGroup(),
@@ -28,14 +28,14 @@ let layerControl = L.control.layers({
         L.tileLayer.provider('BasemapAT.orthofoto'),
         L.tileLayer.provider('BasemapAT.overlay')
     ])
-},{
+}, {
     "Wetterstationen Tirol": overlays.stations,
     "Temperatur (°C)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowehight,
-    "Windgeschwindigkeit (km/h)":overlays.windspeed
-    
-},{
-    collapsed:false
+    "Windgeschwindigkeit (km/h)": overlays.windspeed
+
+}, {
+    collapsed: false
 }).addTo(map);
 
 overlays.temperature.addTo(map);
@@ -46,6 +46,13 @@ L.control.scale({
     imperial: false
 }).addTo(map);
 
+let newLabel = (coords, options) => {
+    console.log("Koordinaten coords:", coords);
+    console.log("Optionsobjekt", options);
+    let marker = L.marker([coords[1], coords[0]]);
+    console.log("Marker:", marker);
+    return marker;
+};
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
 
@@ -80,7 +87,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
 
 
             marker.addTo(overlays.stations);
-            if (station.properties.HS) {
+            if (typeof station.properties.HS == "number") {
                 let highlightClass = '';
                 if (station.properties.HS > 100) {
                     highlightClass = 'snow-100';
@@ -100,7 +107,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 });
                 snowMarker.addTo(overlays.snowehight);
             }
-            if (station.properties.WG) {
+            if (typeof station.properties.WG == "number") {
                 let windHighlightClass = '';
                 if (station.properties.WG > 10) {
                     windHighlightClass = 'wind-10';
@@ -119,39 +126,12 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 });
                 windMarker.addTo(overlays.windspeed);
             }
-            if (station.properties.LT) {
-                let temperatureHighlightClass = '';
-                if (station.properties.LT > 0) {
-                    temperatureHighlightClass = 'positive-temp';
-                }
-                if (station.properties.LT < 0) {
-                    temperatureHighlightClass = 'negative-temp';
-                }
-                let temperatureIcon = L.divIcon({
-                    html: `<div class="temperature-label ${temperatureHighlightClass}">${station.properties.LT}</div>`,
-                });
-                let temperatureMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: temperatureIcon
-                });
-                temperatureMarker.addTo(overlays.temperature);
-            }
-            else if (station.properties.LT == 0) {
-                let temperatureHighlightClass = "temp-0";
-                let temperatureIcon = L.divIcon({
-                    html:`<div class="temperature-label ${temperatureHighlightClass}">${station.properties.LT}</div>`
-                });
-                
-                let temperatureMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: temperatureIcon
-                });
-                
 
+            if (typeof station.properties.LT == "number")
+                let marker = newLabel(station.geometry.coordinates,{
+                    value: station.properties.LT
+                }); 
+                marker.addTo(overlays.temperature);
 
             }
         }
@@ -160,6 +140,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         //set map view to all stations
         map.fitBounds(overlays.stations.getBounds());
     });
+
 
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
