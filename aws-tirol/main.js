@@ -91,13 +91,13 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         `);
             marker.addTo(overlays.stations);
 
-            if (typeof station.properties.HS == "number") 
+            if (typeof station.properties.HS == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
                 value: station.properties.HS
                 }); 
                 marker.addTo(overlays.snowhight);
 
-            if (typeof station.properties.WG == "number") 
+            if (typeof station.properties.WG == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.WG
                 }); 
