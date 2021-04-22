@@ -65,9 +65,10 @@ let newLabel = (coords, options) => {
     })
     
     let marker = L.marker([coords[1], coords[0]], {
-        icon: label
+        icon: label,
+        title: `${options.station}(${coords[2]}m)`
     });
-   //console.log("Marker:", marker);
+
     return marker;
 };
 
@@ -106,14 +107,16 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
             if (typeof station.properties.HS == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
                 value: station.properties.HS.toFixed(0),//to Fixed für Nachkommastellen 
-                colors: COLORS.snowheight
+                colors: COLORS.snowheight,
+                station: station.properties.name
                 }); 
                 marker.addTo(overlays.snowhight);
 
             if (typeof station.properties.WG == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.WG.toFixed(0),
-                    colors: COLORS.windspeed
+                    colors: COLORS.windspeed,
+                    station: station.properties.name,
                 }); 
                 marker.addTo(overlays.windspeed);
 
@@ -121,10 +124,12 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.LT.toFixed(1),
                     colors: COLORS.temperature
+                    station: station.properties.name
                 }); 
                 marker.addTo(overlays.temperature);
 
             }
+        }
         }
 
 
