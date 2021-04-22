@@ -46,8 +46,15 @@ L.control.scale({
     imperial: false
 }).addTo(map);
 
-let getColor = (value, colorRamp) =>{
-    console.log("Wert:", value, "Palette:", colorRamp);
+let getColor = (value, colorRamp) => {
+    let color =  getColor(options.value, options.colors);
+    //console.log("Wert:", options.value, "bekommt Farbe:", colorRamp);
+        for (let rule of colorRamp){
+        if (value >= rule.min && value < rule.max) {
+            return rule.col;
+        }
+    }
+    return "black";
 };
 
 let newLabel = (coords, options) => {
@@ -98,21 +105,21 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
 
             if (typeof station.properties.HS == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
-                value: station.properties.HS, 
+                value: station.properties.HS.toFixed(0),//to Fixed für Nachkommastellen 
                 colors: COLORS.snowheight
                 }); 
                 marker.addTo(overlays.snowhight);
 
             if (typeof station.properties.WG == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
-                    value: station.properties.WG,
+                    value: station.properties.WG.toFixed(0),
                     colors: COLORS.windspeed
                 }); 
                 marker.addTo(overlays.windspeed);
 
             if (typeof station.properties.LT == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
-                    value: station.properties.LT,
+                    value: station.properties.LT.toFixed(1),
                     colors: COLORS.temperature
                 }); 
                 marker.addTo(overlays.temperature);
