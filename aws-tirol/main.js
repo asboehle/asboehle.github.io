@@ -41,16 +41,14 @@ let layerControl = L.control.layers({
 overlays.temperature.addTo(map);
 
 //Maßstab einbauen
-
 L.control.scale({
     imperial: false
 }).addTo(map);
 
 let getColor = (value, colorRamp) => {
-    let color =  getColor(options.value, options.colors);
     //console.log("Wert:", options.value, "bekommt Farbe:", colorRamp);
         for (let rule of colorRamp){
-        if (value >= rule.min && value < rule.max) {
+            if (value >= rule.min && value < rule.max) {
             return rule.col;
         }
     }
@@ -60,8 +58,8 @@ let getColor = (value, colorRamp) => {
 let newLabel = (coords, options) => {
     let color = getColor(options.value,options.colors)
     let label = L.divIcon({
-        html: `<div>${options.value}</div>`,
-        className:"text-label"
+        html: `<div style="background-color:${color}">${options.value}</div>`,
+        className: "text-label"
     })
     
     let marker = L.marker([coords[1], coords[0]], {
@@ -111,6 +109,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 station: station.properties.name
                 }); 
                 marker.addTo(overlays.snowhight);
+            }
 
             if (typeof station.properties.WG == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
@@ -119,6 +118,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                     station: station.properties.name,
                 }); 
                 marker.addTo(overlays.windspeed);
+            }
 
             if (typeof station.properties.LT == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
@@ -127,9 +127,8 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                     station: station.properties.name
                 }); 
                 marker.addTo(overlays.temperature);
-
             }
-        }
+        
         }
 
 
