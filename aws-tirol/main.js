@@ -34,26 +34,12 @@ let layerControl = L.control.layers({
     "Schneehöhe (cm)": overlays.snowehight,
     "Windgeschwindigkeit (km/h)":overlays.windspeed
     
+},{
+    collapsed:false
 }).addTo(map);
+overlays.temperature.addTo(map);
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
-
-//https://leafletjs.com/reference-1.7.1.html#featuregroup
-let awsLayer = L.featureGroup(); 
-layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
-awsLayer.addTo(map); 
-
-let snowLayer = L.featureGroup();
-layerControl.addOverlay(snowLayer, "Schneehöhen (cm)");
-//snowLayer.addTo(map);nicht automatisch hinzugefügt
-
-let windLayer = L.featureGroup();
-layerControl.addOverlay(windLayer, "Windgeschwindigkeit (km/h)");
-//windLayer.addTo(map);
-
-let temperatureLayer = L.featureGroup();
-layerControl.addOverlay(temperatureLayer, "Temperatur (°C)");
-//temperatureLayer.addTo(map);
 
 fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
     .then(response => response.json())
@@ -85,7 +71,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         `);
 
 
-            marker.addTo(awsLayer);
+            marker.addTo(overlays.stations);
             if (station.properties.HS) {
                 let highlightClass = '';
                 if (station.properties.HS > 100) {
@@ -104,7 +90,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 ], {
                     icon: snowIcon
                 });
-                snowMarker.addTo(snowLayer);
+                snowMarker.addTo(overlays.snowehight);
             }
             if (station.properties.WG) {
                 let windHighlightClass = '';
@@ -123,7 +109,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 ], {
                     icon: windIcon
                 });
-                windMarker.addTo(windLayer);
+                windMarker.addTo(overlays.windspeed);
             }
             if (station.properties.LT) {
                 let temperatureHighlightClass = '';
@@ -142,7 +128,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 ], {
                     icon: temperatureIcon
                 });
-                temperatureMarker.addTo(temperatureLayer);
+                temperatureMarker.addTo(overlays.temperature);
             }
             else if (station.properties.LT == 0) {
                 let temperatureHighlightClass = "temp-0";
@@ -164,7 +150,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
 
 
         //set map view to all stations
-        map.fitBounds(awsLayer.getBounds());
+        map.fitBounds(overlays.stations.getBounds());
     });
 
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
