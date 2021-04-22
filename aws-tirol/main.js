@@ -47,10 +47,15 @@ L.control.scale({
 }).addTo(map);
 
 let newLabel = (coords, options) => {
-    console.log("Koordinaten coords:", coords);
-    console.log("Optionsobjekt", options);
-    let marker = L.marker([coords[1], coords[0]]);
-    console.log("Marker:", marker);
+    let label = L.divIcon({
+        html: `<div>${options.value}</div>`,
+        className:"text-label"
+    })
+    
+    let marker = L.marker([coords[1], coords[0]], {
+        icon: label
+    });
+   //console.log("Marker:", marker);
     return marker;
 };
 
@@ -127,7 +132,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 windMarker.addTo(overlays.windspeed);
             }
 
-            if (typeof station.properties.LT == "number")
+            if (typeof station.properties.LT == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.LT
                 }); 
@@ -140,7 +145,5 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         //set map view to all stations
         map.fitBounds(overlays.stations.getBounds());
     });
-
-
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
