@@ -123,7 +123,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
             if (typeof station.properties.LT == "number"){
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.LT.toFixed(1),
-                    colors: COLORS.temperature
+                    colors: COLORS.temperature,
                     station: station.properties.name
                 }); 
                 marker.addTo(overlays.temperature);
