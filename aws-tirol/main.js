@@ -48,8 +48,8 @@ L.control.scale({
 
 let getColor = (value, colorRamp) => {
     //console.log("Wert:", options.value, "bekommt Farbe:", colorRamp);
-        for (let rule of colorRamp){
-            if (value >= rule.min && value < rule.max) {
+    for (let rule of colorRamp) {
+        if (value >= rule.min && value < rule.max) {
             return rule.col;
         }
     }
@@ -66,13 +66,13 @@ let getDirection = (value, directionRamp) => {
 };
 
 let newLabel = (coords, options) => {
-    let color = getColor(options.value,options.colors)
-    let direction = getDirection (options.value, options.directions)
+    let color = getColor(options.value, options.colors)
+    let direction = getDirection(options.value, options.directions)
     let label = L.divIcon({
         html: `<div style="background-color:${color}">${options.value}</div>`,
         className: "text-label"
     })
-    
+
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
         title: `${options.station}(${coords[2]}m)`
@@ -114,30 +114,30 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         `);
             marker.addTo(overlays.stations);
 
-            if (typeof station.properties.HS == "number"){
-                let marker = newLabel(station.geometry.coordinates,{
-                value: station.properties.HS.toFixed(0),//to Fixed für Nachkommastellen 
-                colors: COLORS.snowheight,
-                station: station.properties.name
-                }); 
+            if (typeof station.properties.HS == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.HS.toFixed(0), //to Fixed für Nachkommastellen 
+                    colors: COLORS.snowheight,
+                    station: station.properties.name
+                });
                 marker.addTo(overlays.snowhight);
             }
 
-            if (typeof station.properties.WG == "number"){
-                let marker = newLabel(station.geometry.coordinates,{
+            if (typeof station.properties.WG == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.WG.toFixed(0),
                     colors: COLORS.windspeed,
                     station: station.properties.name,
-                }); 
+                });
                 marker.addTo(overlays.windspeed);
             }
 
-            if (typeof station.properties.LT == "number"){
-                let marker = newLabel(station.geometry.coordinates,{
+            if (typeof station.properties.LT == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.LT.toFixed(1),
                     colors: COLORS.temperature,
                     station: station.properties.name
-                }); 
+                });
                 marker.addTo(overlays.temperature);
             }
 
@@ -152,13 +152,14 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
 
             if (typeof station.properties.WR == "number") {
                 let marker = newLabel(station.geometry.coordinates, {
-                    value: station.properties.WR, DIRECTIONS,
+                    value: station.properties.WR,
+                    DIRECTIONS,
                     colors: COLORS.directions,
                     station: station.properties.name
                 });
                 marker.addTo(overlays.winddirection);
             }
-        
+
         }
 
 
