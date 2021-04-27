@@ -1,7 +1,5 @@
-//https://leafletjs.com/reference-1.7.1.html#tilelayer 
 let basemapGray = L.tileLayer.provider('BasemapAT.grau'); //Provider erleichtert ohne ganzen links kopieren zu müssen
 
-//https://leafletjs.com/reference-1.7.1.html#map-example 
 let map = L.map("map", {
     center: [47, 11],
     zoom: 9,
@@ -34,7 +32,7 @@ let layerControl = L.control.layers({
     "Temperatur (°C)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowhight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed
-    "Relative Luftfeuchte": overlays.humidity
+    "Relative Luftfeuchtigkeit": overlays.humidity
 
 }, {
     collapsed: false
@@ -52,6 +50,15 @@ let getColor = (value, colorRamp) => {
         for (let rule of colorRamp){
             if (value >= rule.min && value < rule.max) {
             return rule.col;
+        }
+    }
+    return "black";
+};
+
+let getDirection = (value, directionRamp) => {
+    for (let rule of directionRamp) {
+        if (value >= rule.min && value < rule.max) {
+            return rule.dir;
         }
     }
     return "black";
@@ -130,6 +137,15 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                     station: station.properties.name
                 }); 
                 marker.addTo(overlays.temperature);
+            }
+
+            if (typeof station.properties.RH == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.RH.toFixed(0),
+                    colors: COLORS.humidity,
+                    station: station.properties.name
+                });
+                marker.addTo(overlays.humidity);
             }
         
         }
