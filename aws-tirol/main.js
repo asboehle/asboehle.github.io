@@ -33,6 +33,7 @@ let layerControl = L.control.layers({
     "Schneehöhe (cm)": overlays.snowhight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed
     "Relative Luftfeuchtigkeit": overlays.humidity
+    "Windrichtung": overlays.winddirection
 
 }, {
     collapsed: false
@@ -66,6 +67,7 @@ let getDirection = (value, directionRamp) => {
 
 let newLabel = (coords, options) => {
     let color = getColor(options.value,options.colors)
+    let direction = getDirection (options.value, options.directions)
     let label = L.divIcon({
         html: `<div style="background-color:${color}">${options.value}</div>`,
         className: "text-label"
@@ -146,6 +148,15 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                     station: station.properties.name
                 });
                 marker.addTo(overlays.humidity);
+            }
+
+            if (typeof station.properties.WR == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.WR, DIRECTIONS,
+                    colors: COLORS.directions,
+                    station: station.properties.name
+                });
+                marker.addTo(overlays.winddirection);
             }
         
         }
