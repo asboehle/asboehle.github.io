@@ -16,6 +16,7 @@ let overlays = {
     snowhight: L.featureGroup(),
     windspeed: L.featureGroup(),
     winddirection: L.featureGroup(),
+    humidity: L.featureGroup(),
 };
 
 
@@ -33,6 +34,7 @@ let layerControl = L.control.layers({
     "Temperatur (°C)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowhight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed
+    "Relative Luftfeuchte": overlays.humidity
 
 }, {
     collapsed: false
@@ -96,6 +98,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
           <li>Luftfeuchte: ${station.properties.RH} </li>
           <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>;
           <li>Windrichtung: ${station.properties.WR || '?'}</li>
+          <li>Relative Luftfeuchtigkeit: ${station.properties.RH || '?'} %</li>
 
         </ul>
         <a target = "_blank" href ="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
