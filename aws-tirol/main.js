@@ -98,11 +98,12 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
             );
             let direction = '';
             if (typeof station.properties.WR == "number") {
-                direction = getDirection(station.properties.WR, DIRECTIONS)};
-           // } else {
-              //  direction ="NA";
+                direction = getDirection(station.properties.WR, DIRECTIONS)
+            };
+            // } else {
+            //  direction ="NA";
             //}
-            
+
             let formattedDate = new Date(station.properties.date);
             marker.bindPopup(`
         <h3>${station.properties.name}</h3>
@@ -157,15 +158,15 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                 marker.addTo(overlays.humidity);
             }
 
-            if (typeof station.properties.WR == "number") {
-                let marker = newLabel(station.geometry.coordinates, {
-                    value: station.properties.WR,
-                    DIRECTIONS,
-                    colors: COLORS.directions,
-                    station: station.properties.name
-                });
-                marker.addTo(overlays.winddirection);
-            }
+            //Directions ist undefined 
+            //if (typeof station.properties.WR == "number") {
+            //  let marker = newLabel(station.geometry.coordinates, {
+            //    value: station.properties.WR,
+            //  colors: COLORS.directions,
+            //  station: station.properties.name
+            // });
+            //marker.addTo(overlays.winddirection);
+            // }
 
         }
 
@@ -174,16 +175,16 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         map.fitBounds(overlays.stations.getBounds());
     });
 
-        // Change default options
-        L.control.rainviewer({ 
-            position: 'bottomleft',
-            nextButtonText: '>',
-            playStopButtonText: 'Play/Stop',
-            prevButtonText: '<',
-            positionSliderLabelText: "Hour:",
-            opacitySliderLabelText: "Opacity:",
-            animationInterval: 500,
-            opacity: 0.5
-        }).addTo(map);
+// Change default options
+L.control.rainviewer({
+    position: 'bottomleft',
+    nextButtonText: '>',
+    playStopButtonText: 'Play/Stop',
+    prevButtonText: '<',
+    positionSliderLabelText: "Hour:",
+    opacitySliderLabelText: "Opacity:",
+    animationInterval: 500,
+    opacity: 0.5
+}).addTo(map);
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
