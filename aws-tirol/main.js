@@ -47,7 +47,7 @@ L.control.scale({
 }).addTo(map);
 
 let getColor = (value, colorRamp) => {
-    //console.log("Wert:", options.value, "bekommt Farbe:", colorRamp);
+    console.log("Wert:", options.value, "bekommt Farbe:", colorRamp);
     for (let rule of colorRamp) {
         if (value >= rule.min && value < rule.max) {
             return rule.col;
@@ -67,7 +67,6 @@ let getDirection = (value, directionRamp) => {
 
 let newLabel = (coords, options) => {
     let color = getColor(options.value, options.colors)
-    let direction = getDirection(options.value, options.directions)
     let label = L.divIcon({
         html: `<div style="background-color:${color}">${options.value}</div>`,
         className: "text-label"
@@ -96,6 +95,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                     station.geometry.coordinates[0]
                 ] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
             );
+            let direction =getDirection(station.properties.WR, DIRECTIONS);
             let formattedDate = new Date(station.properties.date);
             marker.bindPopup(`
         <h3>${station.properties.name}</h3>
@@ -106,7 +106,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
           <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
           <li>Luftfeuchte: ${station.properties.RH} </li>
           <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>;
-          <li>Windrichtung: ${station.properties.WR || '?'}</li>
+          <li>Windrichtung: ${direction || '?'}</li>
           <li>Relative Luftfeuchtigkeit: ${station.properties.RH || '?'} %</li>
 
         </ul>
