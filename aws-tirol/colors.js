@@ -142,7 +142,7 @@ const COLORS = {
     }, {
         min: 60,
         max: 70,
-        col: "#AAA"
+        col: "#AAC"
     }, {
         min: 70,
         max: 80,
