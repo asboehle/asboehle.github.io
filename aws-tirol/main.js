@@ -97,7 +97,7 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
             );
             let direction = '';
             if (typeof station.properties.WR == "number") {
-                direction = getDirection(station.properties.WR, DIRECTIONS)
+                direction = getDirection(station.properties.WR, DIRECTIONS)};
            // } else {
               //  direction ="NA";
             //}
