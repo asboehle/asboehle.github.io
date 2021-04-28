@@ -95,7 +95,13 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
                     station.geometry.coordinates[0]
                 ] //marker hinzufügen mit eckige klammern für längen- und Breitnegrad
             );
-            let direction =getDirection(station.properties.WR, DIRECTIONS);
+            let direction = '';
+            if (typeof station.properties.WR == "number") {
+                direction = getDirection(station.properties.WR, DIRECTIONS)
+           // } else {
+              //  direction ="NA";
+            //}
+            
             let formattedDate = new Date(station.properties.date);
             marker.bindPopup(`
         <h3>${station.properties.name}</h3>
@@ -166,5 +172,17 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         //set map view to all stations
         map.fitBounds(overlays.stations.getBounds());
     });
+
+        // Change default options
+        L.control.rainviewer({ 
+            position: 'bottomleft',
+            nextButtonText: '>',
+            playStopButtonText: 'Play/Stop',
+            prevButtonText: '<',
+            positionSliderLabelText: "Hour:",
+            opacitySliderLabelText: "Opacity:",
+            animationInterval: 500,
+            opacity: 0.5
+        }).addTo(map);
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
