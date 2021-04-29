@@ -74,9 +74,19 @@ let drawBusLines = (geojsonData) => {
     L.geoJson(geojsonData, {
         style: (feature) => {
             let col = "red";
-            if (feature.properties.LINE_NAME == 'Blue Line') {
-                col = "blue";
-            }
+            col = COLORS.busLines [feature.properties.LINE_NAME]; //verkürzte Schreibweise
+//            if (feature.properties.LINE_NAME == 'Blue Line') {
+//                col = COLORS.busLines ["Blue Line"];
+//            }
+//            if (feature.properties.LINE_NAME == 'Orange Line') {
+//                col = COLORS.busLines ["Orange Line"];
+//            }
+//            if (feature.properties.LINE_NAME == 'Grey Line') {
+//                col = COLORS.busLines ["Grey Line"];
+//            }
+//            if (feature.properties.LINE_NAME == 'Yellow Line') {
+//                col = COLORS.busLines ["Yellow Line"];
+//           }
             return {
                 color: col
             }
