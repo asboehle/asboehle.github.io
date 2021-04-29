@@ -109,11 +109,11 @@ fetch(awsUrl) //wenn Inhalt von Webseite gezogen wird
         <h3>${station.properties.name}</h3>
         <ul>
           <li>Datum: ${formattedDate.toLocaleString("de")}</li>
-          <li>Stationshöhe: ${station.geometry.coordinates[2]} m</li>;
+          <li>Stationshöhe: ${station.geometry.coordinates[2]} m</li>
           <li>Temperatur: ${station.properties.LT} °C</li>
           <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
           <li>Luftfeuchte: ${station.properties.RH} </li>
-          <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>;
+          <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>
           <li>Windrichtung: ${direction || '?'}</li>
           <li>Relative Luftfeuchtigkeit: ${station.properties.RH || '?'} %</li>
 
