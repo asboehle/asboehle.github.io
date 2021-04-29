@@ -51,7 +51,7 @@ overlays.Attractions.addTo(map);
 
 //funktion definieren
 let drawBusStop = (geojsonData) => {
-    L.geoJson(geojsonData, {
+    L.geoJson (geojsonData, {
         onEachFeature: (feature, layer) => {
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
             <hr>
@@ -165,17 +165,17 @@ for (let config of OGDWIEN) {
     fetch(config.data)
     .then(response => response.json())
     .then(geojsonData => {
-        console.log("Data: ", geojsonData);
+        //console.log("Data: ", geojsonData);
         if (config.title == "Haltestellen Vienna Sightseeing") {
-            drawBusStop();
+            drawBusStop(geojsonData);
         }
-        if (config.title == "Liniennetz Vienna Sightseeing") {
+        else if (config.title == "Liniennetz Vienna Sightseeing") {
             drawBusLines(geojsonData);
         }
-        if (config.title == "Fußgängerzonen") {
+        else if (config.title == "Fußgängerzonen") {
             drawPedAreas(geojsonData);
         }
-        if (config.title == "Sehenswürdigkeiten") {
+        else if (config.title == "Sehenswürdigkeiten") {
             drawAttractions(geojsonData);
         }
     })
