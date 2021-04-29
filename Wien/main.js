@@ -95,17 +95,28 @@ let drawBusLines = (geojsonData) => {
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
             <hr>
             von ${feature.properties.FROM_NAME}<br>
-            nach ${feature.properties.TO_NAME}`)
+            nach ${feature.properties.TO_NAME}`);
         }
     }).addTo(overlays.busLines);
 }
 
 let drawPedAreas = (geojsonData) => {
+    console.log('Zone: ', geojsonData);
     L.geoJson(geojsonData, {
-        onEachFeature: (feature, layer) => {
-            layer.bindPopup(`<strong>${feature.properties.ADRESSE}</strong>`)
+        style: (feature) => {
+            return {
+                stroke: true,
+                color: "silver",
+                fillColor: "yellow",
+                fillOpacity: 0.3,
+            }
         },
-        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<strong> Fußgängerzone ${feature.properties.ADRESSE}</strong>
+            <hr>
+            ${feature.properties.ZEITRAUM}
+            ${feature.properties.AUSN_TEXT}`);
+        }
     }).addTo(overlays.pedAreas);
 }
 //fetch("data/TOURISTICHSTVSLOGD.json")
