@@ -64,8 +64,21 @@ let drawBusStop = (geojsonData) => {
                 })
             })
         },
+       
         attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a> - <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>'
     }).addTo(overlays.busStops);
+}
+
+let drawBusLines = (geojsonData) => {
+    L.geoJson(geojsonData, {
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
+            <hr>
+            Station: ${feature.properties.STAT_NAME}`)
+        },
+        
+        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
+    }).addTo(overlays.busLines);
 }
 //fetch("data/TOURISTICHSTVSLOGD.json")
 // .then(response => response.json())
@@ -93,6 +106,7 @@ for (let config of OGDWIEN) {
         console.log("Data: ", geojsonData);
         if (config.title == "Haltestellen Vienna Sightseeing") {
             drawBusStop();
+            drawBusLines();
         }
     })
 }
