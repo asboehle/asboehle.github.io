@@ -47,6 +47,7 @@ let layerControl = L.control.layers({
 overlays.busLines.addTo(map);
 overlays.busStops.addTo(map);
 overlays.pedAreas.addTo(map);
+overlays.Attractions.addTo(map);
 
 //funktion definieren
 let drawBusStop = (geojsonData) => {
@@ -74,7 +75,8 @@ let drawBusLines = (geojsonData) => {
     L.geoJson(geojsonData, {
         style: (feature) => {
             let col = "red";
-            col = COLORS.busLines;[feature.properties.LINE_NAME]; //verkürzte Schreibweise
+            col = COLORS.buslines
+            [feature.properties.LINE_NAME]; //verkürzte Schreibweise
 //            if (feature.properties.LINE_NAME == 'Blue Line') {
 //                col = COLORS.busLines ["Blue Line"];
 //            }
