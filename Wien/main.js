@@ -70,13 +70,23 @@ let drawBusStop = (geojsonData) => {
 }
 
 let drawBusLines = (geojsonData) => {
+    console.log('Bus Lines: ', geojsonData);
     L.geoJson(geojsonData, {
+        style: (feature) => {
+            let col = "red";
+            if (feature.properties.LINE_NAME == 'Blue Line') {
+                col = "blue";
+            }
+            return {
+                color: col
+            }
+        },
         onEachFeature: (feature, layer) => {
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
-        `)
-        },
-        
-        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
+            <hr>
+            von ${feature.properties.FROM_NAME}<br>
+            nach ${feature.properties.TO_NAME}`)
+        }
     }).addTo(overlays.busLines);
 }
 
