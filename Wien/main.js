@@ -119,6 +119,24 @@ let drawPedAreas = (geojsonData) => {
         }
     }).addTo(overlays.pedAreas);
 }
+
+let drawAttractions = (geojsonData) => {
+    L.geoJson(geojsonData, {
+    onEachFeature: (feature, layer) => {
+        layer.bindPopup(`<strong>${feature.properties.NAME}</strong>`)
+    },
+    pointToLayer: (geoJsonPoint, latlng) => {
+        return L.marker(latlng, {
+            icon: L.icon({
+                iconUrl: 'icons/attraction.png',
+                iconSize: [38, 38]
+            })
+        })
+    },
+
+}).addTo(overlays.Attractions);
+
+}
 //fetch("data/TOURISTICHSTVSLOGD.json")
 // .then(response => response.json())
 // .then(stations => {
@@ -152,5 +170,13 @@ for (let config of OGDWIEN) {
         if (config.title == "Fußgängerzonen") {
             drawPedAreas(geojsonData);
         }
+        if (config.title == "Sehenswürdigkeiten") {
+            drawAttractions(geojsonData);
+        }
     })
 }
+
+//Datenursprung:
+//https://www.data.gv.at/katalog/dataset/f4e80988-c139-4953-8176-b3d6d03f6449 
+
+//Icon Ursprung:
