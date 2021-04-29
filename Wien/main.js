@@ -74,7 +74,7 @@ let drawBusLines = (geojsonData) => {
     L.geoJson(geojsonData, {
         style: (feature) => {
             let col = "red";
-            col = COLORS.busLines [feature.properties.LINE_NAME]; //verkürzte Schreibweise
+            col = COLORS.busLines;[feature.properties.LINE_NAME]; //verkürzte Schreibweise
 //            if (feature.properties.LINE_NAME == 'Blue Line') {
 //                col = COLORS.busLines ["Blue Line"];
 //            }
@@ -96,7 +96,8 @@ let drawBusLines = (geojsonData) => {
             <hr>
             von ${feature.properties.FROM_NAME}<br>
             nach ${feature.properties.TO_NAME}`);
-        }
+        },
+        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
     }).addTo(overlays.busLines);
 }
 
@@ -116,7 +117,8 @@ let drawPedAreas = (geojsonData) => {
             <hr>
             ${feature.properties.ZEITRAUM}
             ${feature.properties.AUSN_TEXT}`);
-        }
+        },
+        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
     }).addTo(overlays.pedAreas);
 }
 
@@ -133,6 +135,7 @@ let drawAttractions = (geojsonData) => {
             })
         })
     },
+    attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
 
 }).addTo(overlays.Attractions);
 
