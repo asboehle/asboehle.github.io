@@ -73,12 +73,20 @@ let drawBusLines = (geojsonData) => {
     L.geoJson(geojsonData, {
         onEachFeature: (feature, layer) => {
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
-            <hr>
-            Station: ${feature.properties.STAT_NAME}`)
+        `)
         },
         
         attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
     }).addTo(overlays.busLines);
+}
+
+let drawPedAreas = (geojsonData) => {
+    L.geoJson(geojsonData, {
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<strong>${feature.properties.ADRESSE}</strong>`)
+        },
+        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
+    }).addTo(overlays.pedAreas);
 }
 //fetch("data/TOURISTICHSTVSLOGD.json")
 // .then(response => response.json())
@@ -106,7 +114,12 @@ for (let config of OGDWIEN) {
         console.log("Data: ", geojsonData);
         if (config.title == "Haltestellen Vienna Sightseeing") {
             drawBusStop();
-            drawBusLines();
+        }
+        if (config.title == "Liniennetz Vienna Sightseeing") {
+            drawBusLines(geojsonData);
+        }
+        if (config.title == "Fußgängerzonen") {
+            drawPedAreas(geojsonData);
         }
     })
 }
