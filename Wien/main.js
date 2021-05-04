@@ -17,7 +17,8 @@ let baselayers = {
 let overlays = {
     busLines: L.featureGroup(),
     busStops: L.featureGroup(),
-    pedAreas: L.featureGroup()
+    pedAreas: L.featureGroup(),
+    attractions: L.featureGroup()
 };
 
 // Karte initialisieren und auf Wiens Wikipedia Koordinate blicken
@@ -40,14 +41,15 @@ let layerControl = L.control.layers({
 }, {
     "Liniennetz Vienna Sightseeing": overlays.busLines,
     "Haltestellen Vienna Sightseeing": overlays.busStops,
-    "Fußgängerzonen": overlays.pedAreas
+    "Fußgängerzonen": overlays.pedAreas,
+    "Sehenswürdigkeiten": overlays.attractions
 }).addTo(map);
 
 // alle Overlays nach dem Laden anzeigen
 overlays.busLines.addTo(map);
 overlays.busStops.addTo(map);
 overlays.pedAreas.addTo(map);
-overlays.Attractions.addTo(map);
+overlays.attractions.addTo(map);
 
 //funktion definieren
 let drawBusStop = (geojsonData) => {
@@ -97,7 +99,7 @@ let drawBusLines = (geojsonData) => {
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
             <hr>
             von ${feature.properties.FROM_NAME}<br>
-            nach ${feature.properties.TO_NAME}`);
+            nach ${feature.properties.TO_NAME}`)
         },
         attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
     }).addTo(overlays.busLines);
@@ -117,8 +119,9 @@ let drawPedAreas = (geojsonData) => {
         onEachFeature: (feature, layer) => {
             layer.bindPopup(`<strong> Fußgängerzone ${feature.properties.ADRESSE}</strong>
             <hr>
-            ${feature.properties.ZEITRAUM}
-            ${feature.properties.AUSN_TEXT}`);
+            ${feature.properties.ZEITRAUM || ""} <br>
+            ${feature.properties.AUSN_TEXT || ""}
+            `);
         },
         attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
     }).addTo(overlays.pedAreas);
@@ -127,8 +130,12 @@ let drawPedAreas = (geojsonData) => {
 let drawAttractions = (geojsonData) => {
     L.geoJson(geojsonData, {
     onEachFeature: (feature, layer) => {
-        layer.bindPopup(`<strong>${feature.properties.NAME}</strong>`)
-    },
+        layer.bindPopup(`<strong>${feature.properties.NAME}</strong>
+        <hr>
+        Adresse: ${feature.properties.ADRESSE}<br>
+        <a href="${feature.properties.WEITERE_INF}">Weblink</a>
+    `)
+},
     pointToLayer: (geoJsonPoint, latlng) => {
         return L.marker(latlng, {
             icon: L.icon({
@@ -139,7 +146,7 @@ let drawAttractions = (geojsonData) => {
     },
     attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>'
 
-}).addTo(overlays.Attractions);
+}).addTo(overlays.attractions);
 
 }
 //fetch("data/TOURISTICHSTVSLOGD.json")
