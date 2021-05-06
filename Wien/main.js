@@ -209,5 +209,21 @@ var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"), {
 //Reachability
 L.control.reachability({
     // Mein API: 5b3ce3597851110001cf62486f4d81186e8544b9816dfb7647e12511
-    apiKey: '5b3ce3597851110001cf62486f4d81186e8544b9816dfb7647e12511'
+    apiKey: '5b3ce3597851110001cf62486f4d81186e8544b9816dfb7647e12511',
+    drawButtonContent: '',
+    drawButtonStyleClass: 'fa fa-pencil-alt',
+    deleteButtonContent: '',
+    deleteButtonStyleClass: 'fa fa-trash',
+    distanceButtonContent: '',
+    distanceButtonStyleClass: 'fa fa-road',
+    timeButtonContent: '',
+    timeButtonStyleClass: 'fa fa-clock',
+    travelModeButton1Content: '',
+    travelModeButton1StyleClass: 'fa fa-car',
+    travelModeButton2Content: '',
+    travelModeButton2StyleClass: 'fa fa-bicycle',
+    travelModeButton3Content: '',
+    travelModeButton3StyleClass: 'fa fa-male',
+    travelModeButton4Content: '',
+    travelModeButton4StyleClass: 'fa fa-wheelchair'
 }).addTo(map);
