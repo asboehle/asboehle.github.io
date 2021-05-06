@@ -195,8 +195,13 @@ for (let config of OGDWIEN) {
 //https://www.data.gv.at/katalog/dataset/f4e80988-c139-4953-8176-b3d6d03f6449 
 
 //Icon Ursprung:
-
+https://mapicons.mapsmarker.com/markers/transportation/road-transportation/bus-stop/?custom_color=509c55
 // leaflet hash
 //var hash = new L.hash(map) aber kurz:
 L.hash(map);
-var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap")).addTo(map)
+
+//Minimap einfügen
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"), {
+    toggleDisplay: true,
+    minimized: false,
+}).addTo(map)
