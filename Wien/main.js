@@ -192,3 +192,6 @@ for (let config of OGDWIEN) {
 //https://www.data.gv.at/katalog/dataset/f4e80988-c139-4953-8176-b3d6d03f6449 
 
 //Icon Ursprung:
+
+// leaflet hash
+var hash = new L.hash(map)
