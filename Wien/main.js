@@ -206,10 +206,31 @@ var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"), {
     minimized: false,
 }).addTo(map)
 
-//Reachability
+//Reachability Plugin
+
+let styleIntervals = (feature) => {
+    let color = "";
+    //console.log(feature);
+    //console.log(feature.properties.Measure);
+    let range = feature.properties.Range;
+    if (feature.properties.Measure === "time") {
+    color = COLORS.minutes[range];
+    } else if (feature.properties.Measure === "distance") {
+        clor = COLORS.kilometers[range];
+    } else {
+        color = "black";
+    }
+    return {
+        color: color,
+        opacity: 0.5,
+        fillOpacity: 0.2,
+    };
+};
+
 L.control.reachability({
     // Mein API: 5b3ce3597851110001cf62486f4d81186e8544b9816dfb7647e12511
     apiKey: '5b3ce3597851110001cf62486f4d81186e8544b9816dfb7647e12511',
+    styleFN: styleIntervals,
     drawButtonContent: '',
     drawButtonStyleClass: 'fa fa-pencil-alt fa-2x',
     deleteButtonContent: '',
@@ -227,3 +248,6 @@ L.control.reachability({
     travelModeButton4Content: '',
     travelModeButton4StyleClass: 'fa fa-wheelchair fa-2x'
 }).addTo(map);
+
+// Farbpaletten: https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3 
+//icons für reachability: https://fontawesome.com/v4.7.0/icon/pencil 
