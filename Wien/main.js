@@ -14,6 +14,7 @@ let baselayers = {
 };
 
 // Overlays für die Themen zum Ein- und Ausschalten definieren
+// MarkerCluster bei Sehenswürdigkeiten
 let overlays = {
     busLines: L.featureGroup(),
     busStops: L.featureGroup(),
@@ -198,3 +199,4 @@ for (let config of OGDWIEN) {
 // leaflet hash
 //var hash = new L.hash(map) aber kurz:
 L.hash(map);
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap")).addTo(map)
