@@ -194,4 +194,5 @@ for (let config of OGDWIEN) {
 //Icon Ursprung:
 
 // leaflet hash
-var hash = new L.hash(map)
+//var hash = new L.hash(map) aber kurz:
+L.hash(map);
