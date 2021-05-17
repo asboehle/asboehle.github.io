@@ -189,7 +189,7 @@ L.control.rainviewer({
 }).addTo(map);
 
 //Minimap
-var miniMap = new L.Control.MiniMap(L.tileLayer.provider('BasemapAT.grau'), {
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.grau"), {
     toggleDisplay: true,
     minimized: false,
 }).addTo(map)
