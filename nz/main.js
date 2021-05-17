@@ -9,10 +9,20 @@ let stop = {
 
 
 const map = L.map("map", {
-    //center: [ -44.616667, 167.866667 ],
-    //zoom: 13,
+    center: [ -44.616667, 167.866667 ],
+    zoom: 13,
+    fullscreenControl: true,
     layers: [L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")]
 });
+
+//Minimap einfügen
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"), {
+    toggleDisplay: true,
+    minimized: false,
+
+}).addTo(map);
+
+
 
 let nav = document.querySelector('#navigation');
 console.log('Naivation HTML Element: ', nav);
