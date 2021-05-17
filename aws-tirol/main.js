@@ -5,7 +5,8 @@ let map = L.map("map", {
     zoom: 9,
     layers: [
         basemapGray
-    ]
+    ],
+    fullscreenControl: true,
 });
 
 let overlays = {
@@ -193,14 +194,5 @@ var miniMap = new L.Control.MiniMap(L.tileLayer.provider('BasemapAT.grau'), {
     minimized: false,
 }).addTo(map)
 
-//fullscreen 
-let map = L.map("map", {
-    fullscreenControl: true,
-    center: [47, 11],
-    zoom: 9,
-    layers: [
-        basemapGray
-    ]
-});
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
