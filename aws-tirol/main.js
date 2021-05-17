@@ -186,5 +186,11 @@ L.control.rainviewer({
     animationInterval: 500,
     opacity: 0.5
 }).addTo(map);
+
+//Minimap
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider('BasemapAT.grau'), {
+    toggleDisplay: true,
+    minimized: false,
+}).addTo(map)
 // Karte von leaflet http://leaflet-extras.github.io/leaflet-providers/preview/#filter=BasemapAT.orthofoto 
 // Stationsdaten https://www.data.gv.at/katalog/dataset/bb43170b-30fb-48aa-893f-51c60d27056f 
