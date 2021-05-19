@@ -16,13 +16,11 @@ const map = L.map("map", {
 });
 
 //Minimap einfügen
-var miniMap = new L.Control.MiniMap(L.tileLayer.provider("map"), {
+var miniMap = new L.Control.MiniMap(L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), {
     toggleDisplay: true,
     minimized: false,
 
 }).addTo(map);
-
-
 
 let nav = document.querySelector('#navigation');
 console.log('Naivation HTML Element: ', nav);
