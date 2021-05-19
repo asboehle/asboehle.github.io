@@ -16,7 +16,7 @@ const map = L.map("map", {
 });
 
 //Minimap einfügen
-var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"), {
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("map"), {
     toggleDisplay: true,
     minimized: false,
 
