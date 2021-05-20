@@ -48,9 +48,14 @@ const drawTrack = (nr) => {
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true, //veranlasst dass wartet bis komplette Datei geladen ist
         marker_options: {
-            startIconUrl: `icons/numer_${nr}.png`,
+            startIconUrl: `icons/number_${nr}.png`,
             endIconUrl: 'icons/finish.png',
             shadowUrl: null,
+          },
+          polyline_options: {
+              color: 'black',
+              dashArray: [2, 5], //gestichelte Linie 
+
           }
     }).addTo(overlays.tracks);
 };
