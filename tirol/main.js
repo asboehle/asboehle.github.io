@@ -88,7 +88,13 @@ drawTrack(selectedTrack);
 console.log('biketirol.json: ', BIKETIROL);
 let pulldown = dokucment.querySelector("#pulldown");
 console.log('Pulldown: ', pulldown);
+let selected = '';
     for (let track of BIKETIROL) {
         //console.log(track);
+        if (selectedTrack == track.nr){
+            selected = 'selected';
+        } else {
+            selected = '';
+        }
         pulldown.inenrHTML += `<option value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
 }
