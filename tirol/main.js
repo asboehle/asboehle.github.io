@@ -58,7 +58,13 @@ const drawTrack = (nr) => {
 
           }
     }).addTo(overlays.tracks);
+    gpxTrack.on("loaded", () => {
+        console.log('loaded gpx');
+        map.fitBounds(gpxTrack.getBounds());
+        layer.bindPopup("Länge: 33km", "Höhenmeter: 1250 m", "Fahrzeit: 5 h", "Schwierigkeit: schwierig")
+    })
 };
 
+//To Do:popup zu GPX Track mit Länge, min & max Höhe
 const selectedTrack = 29;
 drawTrack(selectedTrack);
