@@ -86,7 +86,7 @@ const selectedTrack = 29;
 drawTrack(selectedTrack);
 
 console.log('biketirol json: ', BIKETIROL);
-let pulldown = dokucment.querySelector("#pulldown");
+let pulldown = document.querySelector("#pulldown");
 console.log('Pulldown: ', pulldown);
 let selected = '';
     for (let track of BIKETIROL) {
