@@ -45,6 +45,14 @@ overlays.tracks.addTo(map);
 //track 29 zeichnen
 const drawTrack = (nr) => {
     console.log('Track: ', nr);
+    let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
+        async: true, //veranlasst dass wartet bis komplette Datei geladen ist
+        marker_options: {
+            startIconUrl: `icons/numer_${nr}.png`,
+            endIconUrl: 'icons/finish.png',
+            shadowUrl: null,
+          }
+    }).addTo(overlays.tracks);
 };
 
 const selectedTrack = 29;
