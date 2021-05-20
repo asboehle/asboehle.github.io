@@ -50,7 +50,9 @@ const elevationControl = L.control.elevation({
 
 //track 29 zeichnen
 const drawTrack = (nr) => {
-    console.log('Track: ', nr);
+    //console.log('Track: ', nr);
+    elevationControl.clear();
+    overlays.tracks.clearLayers();
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true, //veranlasst dass wartet bis komplette Datei geladen ist
         marker_options: {
@@ -85,9 +87,9 @@ const drawTrack = (nr) => {
 const selectedTrack = 29;
 drawTrack(selectedTrack);
 
-console.log('biketirol json: ', BIKETIROL);
+//console.log('biketirol json: ', BIKETIROL);
 let pulldown = document.querySelector("#pulldown");
-console.log('Pulldown: ', pulldown);
+//console.log('Pulldown: ', pulldown);
 let selected = '';
     for (let track of BIKETIROL) {
         //console.log(track);
@@ -100,6 +102,6 @@ let selected = '';
 }
 
 pulldown.onchange = () => {
-    console.log('changed!!!!!', pulldown.value);
+    //console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
 }; 
