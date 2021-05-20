@@ -42,6 +42,10 @@ let layerControl = L.control.layers({
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
 
+const elevationControl = L.control.elevation({
+    elevationDiv: "#profile",
+}). addTo(map);
+
 //track 29 zeichnen
 const drawTrack = (nr) => {
     console.log('Track: ', nr);
@@ -72,6 +76,7 @@ const drawTrack = (nr) => {
          </ul>
          `);
     })
+    elevationControl.load(`tracks/${nr}.gpx`);
 };
 
 //To Do:popup zu GPX Track mit Länge, min & max Höhe
