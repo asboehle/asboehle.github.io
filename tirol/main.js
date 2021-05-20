@@ -44,6 +44,8 @@ overlays.tracks.addTo(map);
 
 const elevationControl = L.control.elevation({
     elevationDiv: "#profile",
+    followMarker: false,
+    theme: 'lime-theme', //Fäbrung Höhenmodell
 }). addTo(map);
 
 //track 29 zeichnen
@@ -82,3 +84,11 @@ const drawTrack = (nr) => {
 //To Do:popup zu GPX Track mit Länge, min & max Höhe
 const selectedTrack = 29;
 drawTrack(selectedTrack);
+
+console.log('biketirol.json: ', BIKETIROL);
+let pulldown = dokucment.querySelector("#pulldown");
+console.log('Pulldown: ', pulldown);
+    for (let track of BIKETIROL) {
+        //console.log(track);
+        pulldown.inenrHTML += `<option value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
+}
