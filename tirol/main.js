@@ -169,12 +169,22 @@ drawTrack(selectedTrack);
 const updateText = (nr) => {
     console.log(nr);
     for (let etappe of BIKETIROL) {
-        console.log(etappe);
+        //console.log(etappe);
 
         // ist es die aktuelle Etappe?
         if (etappe.nr == nr) {
-            console.log("unsere Etappe", etappe)
+            //console.log("unsere Etappe", etappe);
+        for (let key in etappe) {
+           // console.log("key", key, "value:", etappe[key]);
+
+            // gibt es ein Element im HTML mit der ID von "key"
+            if (document.querySelector(`#${key}`)) {
+                console.log("Juhu", key, etappe[key]);
+                document.querySelector(`#${key}`).innerHTML = etappe[key];
+            }
         }
+        }
+        
     }
 
 };
