@@ -55,7 +55,7 @@ const elevationControl = L.control.elevation({
 const drawWikipedia = (bounds) => {
     //console.log(bounds);
     let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=asboehle&lang=de&maxRows=30`;
-    //console.log(url);
+    console.log(url);
 
     let icons = {
         adm1st: "wikipedia_administration.png",
@@ -166,6 +166,19 @@ const drawTrack = (nr) => {
 const selectedTrack = 29;
 drawTrack(selectedTrack);
 
+const updateText = (nr) => {
+    console.log(nr);
+    for (let etappe of BIKETIROL) {
+        console.log(etappe);
+
+        // ist es die aktuelle Etappe?
+        if (etappe.nr == nr) {
+            console.log("unsere Etappe", etappe)
+        }
+    }
+
+};
+
 //console.log('biketirol json: ', BIKETIROL);
 let pulldown = document.querySelector("#pulldown");
 // console.log('Pulldown: ', pulldown);
@@ -178,11 +191,6 @@ for (let track of BIKETIROL) {
     }
     pulldown.innerHTML += `<option ${selected} value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
 }
-
-pulldown.onchange = () => {
-    //console.log('changed!!!!!', pulldown.value);
-    drawTrack(pulldown.value);
-}; 
 
 // Eventhandler fuer Aenderung des Dropdown
 pulldown.onchange = () => {
