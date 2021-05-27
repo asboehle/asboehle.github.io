@@ -176,7 +176,7 @@ const updateText = (nr) => {
             //console.log("unsere Etappe", etappe);
         for (let key in etappe) {
            // console.log("key", key, "value:", etappe[key]);
-
+           etappe.homepage = `<a href="${etappe.weblink}"> Homepage </a>`;
             // gibt es ein Element im HTML mit der ID von "key"
             if (document.querySelector(`#${key}`)) {
                 console.log("Juhu", key, etappe[key]);
