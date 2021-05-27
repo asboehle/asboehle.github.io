@@ -52,10 +52,11 @@ const elevationControl = L.control.elevation({
 }). addTo(map);
 
 // Wikipedia Artikel Zeichnen
+let articleDrawn = {};
 const drawWikipedia = (bounds) => {
     //console.log(bounds);
     let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=asboehle&lang=de&maxRows=30`;
-    console.log(url);
+    //console.log(url);
 
     let icons = {
         adm1st: "wikipedia_administration.png",
@@ -76,14 +77,14 @@ const drawWikipedia = (bounds) => {
     fetch(url).then(
         response => response.json()
     ).then(jsonData => {
-        console.log(jsonData);
+        //console.log(jsonData);
 
         // Artikel Marker erzeugen
         for (let article of jsonData.geonames) {
             //habe ich den Artikel schon gezeichnet?
             if (articleDrawn[article.wikipediaUrl]){
                 //Ja, nicht noch einmal zeichnen
-                console.log("schon gesehen", article.wikipediaUrl);
+                //console.log("schon gesehen", article.wikipediaUrl);
                 continue;
             } else {
                 articleDrawn[article.wikipediaUrl] = true;
@@ -99,7 +100,11 @@ const drawWikipedia = (bounds) => {
 
             let mrk = L.marker([article.lat, article.lng], {
                 icon: L.icon({
-                    iconUrl: `icons/${icons[article.feature]}`
+                    iconUrl: `icons/${icons[article.feature]}`,
+                    iconUrl: `icons/${icons[article.feature]}`,
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -37],
                 })
             });
             mrk.addTo(overlays.wikipedia);
@@ -129,6 +134,9 @@ const drawTrack = (nr) => {
     //console.log('Track: ', nr);
     elevationControl.clear();
     overlays.tracks.clearLayers();
+    if (activeElevationTrack) {
+        activeElevationTrack.removeFrom(map);
+    }
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true, //veranlasst dass wartet bis komplette Datei geladen ist
         marker_options: {
@@ -155,37 +163,39 @@ const drawTrack = (nr) => {
              <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
          </ul>
          `);
-
-         //Wikipedia
-         drawWikipedia(gpxTrack.getBounds());
-    })
+    });
     elevationControl.load(`tracks/${nr}.gpx`);
+    elevationControl.on('eledata_loaded', (evt) => {
+        activeElevationTrack = evt.layer;
+    });
+
 };
+
 
 //To Do:popup zu GPX Track mit Länge, min & max Höhe
 const selectedTrack = 29;
 drawTrack(selectedTrack);
 
-const updateText = (nr) => {
-    console.log(nr);
+const updateTexts = (nr) => {
+    //console.log(nr);
     for (let etappe of BIKETIROL) {
         //console.log(etappe);
-
         // ist es die aktuelle Etappe?
         if (etappe.nr == nr) {
             //console.log("unsere Etappe", etappe);
+        etappe.homepage = `<a href="${etappe.weblink}">Homepage</a>`;
         for (let key in etappe) {
            // console.log("key", key, "value:", etappe[key]);
            etappe.homepage = `<a href="${etappe.weblink}"> Homepage </a>`;
             // gibt es ein Element im HTML mit der ID von "key"
             if (document.querySelector(`#${key}`)) {
-                console.log("Juhu", key, etappe[key]);
+                //console.log("Juhu", key, etappe[key]);
                 document.querySelector(`#${key}`).innerHTML = etappe[key];
             }
         }
-        }
-        
     }
+        
+}
 
 };
 
@@ -202,13 +212,20 @@ for (let track of BIKETIROL) {
     pulldown.innerHTML += `<option ${selected} value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
 }
 
+// Metadaten der Etappe updaten
+updateTexts(pulldown.value);
+
 // Eventhandler fuer Aenderung des Dropdown
 pulldown.onchange = () => {
     // console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
+
+    // Metadaten der Etappe updaten
+    updateTexts(pulldown.value);
+
 };
 
 map.on("zoomed moveend", () => {
     //Wikipedia Artkel zeichnen
-    drawWikipedia(map.getBounds)
+    drawWikipedia(map.getBounds())
 });
