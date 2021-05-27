@@ -43,13 +43,77 @@ let layerControl = L.control.layers({
 
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
-overlays.wikipedia.addTO(map)
+overlays.wikipedia.addTo(map);
 
 const elevationControl = L.control.elevation({
     elevationDiv: "#profile",
     followMarker: false,
     theme: 'lime-theme', //Fäbrung Höhenmodell
 }). addTo(map);
+
+// Wikipedia Artikel Zeichnen
+const drawWikipedia = (bounds) => {
+    console.log(bounds);
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=asboehle&lang=de&maxRows=30`;
+    console.log(url);
+
+    let icons = {
+        adm1st: "wikipedia_administration.png",
+        adm2nd: "wikipedia_administration.png",
+        adm3rd: "wikipedia_administration.png",
+        airport: "wikipedia_helicopter.png",
+        city: "wikipedia_smallcity.png",
+        glacier: "wikipedia_glacier-2.png",
+        landmark: "wikipedia_landmark.png",
+        railwaystation: "wikipedia_train.png",
+        river: "wikipedia_river-2.png",
+        mountain: "wikipedia_mountains.png",
+        waterbody: "wikipedia_lake.png",
+        default: "wikipedia_information.png",
+    };
+
+    // URL bei geonames.org aufrufen und JSO-Daten abholen
+    fetch(url).then(
+        response => response.json()
+    ).then(jsonData => {
+        console.log(jsonData);
+
+        // Artikel Marker erzeugen
+        for (let article of jsonData.geonames) {
+            // welches Icon soll verwendet werden?
+            if (icons[article.feature]) {
+                // ein Bekanntes
+            } else {
+                // unser generisches Info-Icon
+                article.feature = "default";
+            }
+
+            let mrk = L.marker([article.lat, article.lng], {
+                icon: L.icon({
+                    iconUrl: `icons/${icons[article.feature]}`
+                })
+            });
+            mrk.addTo(overlays.wikipedia);
+
+            // optionales Bild definieren
+           let img = "";
+           if (article.thumbnailImg) {
+               img = `<img src="${article.thumbnailImg}" alt="thumbnail">`;
+           }
+           // Popup definieren
+           mrk.bindPopup(`
+               <small>${article.feature}</small>
+               <h3>${article.title} (${article.elevation}m)</h3>
+               ${img}
+               <p>${article.summary}</p>
+               <a target="Wikipedia" href="https://${article.wikipediaUrl}">Wikipedia-Artikel</a>
+           `);
+       }
+   });
+};
+let activeElevationTrack;
+
+
 
 //track 29 zeichnen
 const drawTrack = (nr) => {
@@ -82,6 +146,9 @@ const drawTrack = (nr) => {
              <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
          </ul>
          `);
+
+         //Wikipedia
+         drawWikipedia(gpxTrack.getBounds());
     })
     elevationControl.load(`tracks/${nr}.gpx`);
 };
@@ -107,3 +174,14 @@ pulldown.onchange = () => {
     //console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
 }; 
+
+// Eventhandler fuer Aenderung des Dropdown
+pulldown.onchange = () => {
+    // console.log('changed!!!!!', pulldown.value);
+    drawTrack(pulldown.value);
+};
+
+map.on("zoomed moveend", () => {
+    //Wikipedia Artkel zeichnen
+    drawWikipedia(map.getBounds)
+});
