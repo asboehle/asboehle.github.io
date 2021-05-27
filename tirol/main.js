@@ -80,6 +80,15 @@ const drawWikipedia = (bounds) => {
 
         // Artikel Marker erzeugen
         for (let article of jsonData.geonames) {
+            //habe ich den Artikel schon gezeichnet?
+            if (articleDrawn[article.wikipediaUrl]){
+                //Ja, nicht noch einmal zeichnen
+                console.log("schon gesehen", article.wikipediaUrl);
+                continue;
+            } else {
+                articleDrawn[article.wikipediaUrl] = true;
+            }
+
             // welches Icon soll verwendet werden?
             if (icons[article.feature]) {
                 // ein Bekanntes
