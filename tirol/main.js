@@ -188,9 +188,9 @@ const updateTexts = (nr) => {
            // console.log("key", key, "value:", etappe[key]);
            etappe.homepage = `<a href="${etappe.weblink}"> Homepage </a>`;
             // gibt es ein Element im HTML mit der ID von "key"
-            if (document.querySelector(`#${key}`)) {
+            if (document.querySelector(`#text-${key}`)) {
                 //console.log("Juhu", key, etappe[key]);
-                document.querySelector(`#${key}`).innerHTML = etappe[key];
+                document.querySelector(`#text-${key}`).innerHTML = etappe[key];
             }
         }
     }
