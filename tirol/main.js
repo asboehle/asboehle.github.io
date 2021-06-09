@@ -185,8 +185,7 @@ const updateTexts = (nr) => {
             //console.log("unsere Etappe", etappe);
         etappe.homepage = `<a href="${etappe.weblink}">Homepage</a>`;
         for (let key in etappe) {
-           // console.log("key", key, "value:", etappe[key]);
-           etappe.homepage = `<a href="${etappe.weblink}"> Homepage </a>`;
+           // console.log("key", key, "value:", etappe[key])
             // gibt es ein Element im HTML mit der ID von "key"
             if (document.querySelector(`#text-${key}`)) {
                 //console.log("Juhu", key, etappe[key]);
